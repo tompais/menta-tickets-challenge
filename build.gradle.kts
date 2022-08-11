@@ -72,6 +72,10 @@ tasks.build {
     mustRunAfter(tasks.clean)
 }
 
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}
+
 tasks.bootRun {
     dependsOn(tasks.ktlintCheck)
 }
