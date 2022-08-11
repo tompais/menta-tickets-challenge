@@ -12,7 +12,6 @@ import org.springdoc.core.annotations.RouterOperation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.web.reactive.function.server.coRouter
 
 @Configuration
@@ -28,7 +27,6 @@ class RouterConfig {
                 required = true,
                 content = [
                     Content(
-                        mediaType = APPLICATION_JSON_VALUE,
                         schema = Schema(implementation = ChallengeRequest::class)
                     )
                 ]
@@ -39,10 +37,13 @@ class RouterConfig {
                     description = "The challenge was successfully solved",
                     content = [
                         Content(
-                            mediaType = APPLICATION_JSON_VALUE,
                             schema = Schema(implementation = ChallengeResponse::class)
                         )
                     ]
+                ),
+                ApiResponse(
+                    responseCode = "400",
+                    description = "The given text is invalid"
                 )
             ]
         )

@@ -24,7 +24,6 @@ springdoc:
   swagger-ui:
     use-root-path: true
     display-request-duration: true
-  show-actuator: true
 logging:
   level:
     root: warn

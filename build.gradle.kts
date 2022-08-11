@@ -32,6 +32,10 @@ repositories {
 
 val snippetsDir by extra { file("build/generated-snippets") }
 
+jacoco {
+    version = "0.8.8"
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -53,6 +57,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-webtestclient")
+    testImplementation("io.rest-assured:spring-web-test-client:5.1.1")
 }
 
 tasks.withType<KotlinCompile> {
@@ -107,12 +112,27 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
     }
+    classDirectories.setFrom(
+        classDirectories.files.map {
+            fileTree(it).matching {
+                exclude(
+                    "**/utils/**",
+                    "**/requests/**",
+                    "**/responses/**",
+                    "**/error/**",
+                    "**/config/**",
+                    "**/BaseController*"
+                )
+            }
+        }
+    )
 }
 
 tasks.jacocoTestCoverageVerification {
     dependsOn(tasks.jacocoTestReport)
     violationRules {
         rule {
+            classDirectories.setFrom(tasks.jacocoTestReport.get().classDirectories)
             limit {
                 value = "COVEREDRATIO"
                 minimum = "0.8".toBigDecimal()
@@ -120,6 +140,7 @@ tasks.jacocoTestCoverageVerification {
         }
 
         rule {
+            classDirectories.setFrom(tasks.jacocoTestReport.get().classDirectories)
             element = "CLASS"
 
             limit {

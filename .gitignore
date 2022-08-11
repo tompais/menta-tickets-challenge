@@ -444,9 +444,6 @@ hs_err_pid*
 # TODO: where does this rule come from?
 docs/_book
 
-# TODO: where does this rule come from?
-test/
-
 ### Kotlin template
 # Compiled class file
 
