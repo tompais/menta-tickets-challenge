@@ -121,7 +121,8 @@ tasks.jacocoTestReport {
                     "**/responses/**",
                     "**/error/**",
                     "**/config/**",
-                    "**/BaseController*"
+                    "**/BaseController*",
+                    "**/ChallengeApplication*"
                 )
             }
         }
