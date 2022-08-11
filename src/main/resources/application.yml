@@ -1,0 +1,32 @@
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      show-components: always
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  error:
+    include-stacktrace: always
+    include-message: always
+    include-exception: true
+    include-binding-errors: always
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    display-request-duration: true
+  show-actuator: true
+logging:
+  level:
+    root: warn
+    com:
+      menta_tickets: trace
