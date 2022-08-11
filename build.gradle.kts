@@ -10,6 +10,7 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     jacoco
+    java
 }
 
 group = "com.menta_tickets"
@@ -61,6 +62,14 @@ tasks.withType<KotlinCompile> {
         allWarningsAsErrors = true
     }
     finalizedBy(tasks.ktlintCheck)
+}
+
+task("stage") {
+    dependsOn(tasks.build, tasks.clean)
+}
+
+tasks.build {
+    mustRunAfter(tasks.clean)
 }
 
 tasks.bootRun {
