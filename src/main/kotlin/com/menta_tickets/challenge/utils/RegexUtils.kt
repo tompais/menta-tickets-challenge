@@ -1,6 +1,5 @@
 package com.menta_tickets.challenge.utils
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -14,10 +13,9 @@ object RegexUtils {
 
     fun Regex.countAllAndMultiply(
         input: CharSequence,
-        dispatcher: CoroutineDispatcher = Dispatchers.Default,
         multiplier: UInt = 1u
     ): Flow<ULong> = findAll(input).asFlow()
-        .flowOn(dispatcher)
+        .flowOn(Dispatchers.Default)
         .map { it.value.count().toULong() * multiplier }
-        .flowOn(dispatcher)
+        .flowOn(Dispatchers.Default)
 }

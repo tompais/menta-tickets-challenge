@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern
 data class ChallengeRequest(
     @field:NotBlank(message = "The text should not be blank")
     @field:Pattern(
-        regexp = "[0-9A-Za-zÀ-ÿ @#\$%∞‰&/()=?¿_-]*",
+        regexp = "[0-9A-Za-zÀ-ÿ \\n\\r\\t@#\$%∞‰&/()=?¿_-]+",
         message = "The text contains invalid chars"
     )
     val text: String

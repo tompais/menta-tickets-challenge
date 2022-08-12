@@ -16,6 +16,19 @@ class ChallengeIntegrationTest : BaseIntegrationTest() {
         @JvmStatic
         private fun solveChallenge(): List<Arguments> = listOf(
             arguments("El 37% de los humanos está bancarizado", 15),
+            arguments(
+                """7% es la taza de desocupación
+                |2% es el índice de producción industrial manufacturero
+            """.trimMargin(),
+                35
+            ),
+            arguments(
+                """     7% es la taza de desocupación
+                    |ç
+                |2% es el índice de producción industrial manufacturero
+            """.trimMargin(),
+                35
+            ),
             arguments("Jx31o0Ug", 3),
             arguments("@#\$%∞‰&/()=?¿_-", 15),
             arguments("Are you talking to me?¿", 10)
@@ -31,7 +44,7 @@ class ChallengeIntegrationTest : BaseIntegrationTest() {
 
     @MethodSource
     @ParameterizedTest
-    fun solveChallenge(text: String, result: Int) {
+    fun solveChallenge(text: String, expectedResult: Int) {
         given()
             .accept(JSON)
             .contentType(JSON)
@@ -42,7 +55,7 @@ class ChallengeIntegrationTest : BaseIntegrationTest() {
             .assertThat()
             .status(OK)
             .and()
-            .body("result", equalTo(result))
+            .body("result", equalTo(expectedResult))
     }
 
     @MethodSource
