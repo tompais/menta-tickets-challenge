@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.toList
 
 object CharSequenceUtils {
-    suspend fun CharSequence.countClosedStrokes(dispatcher: CoroutineDispatcher = Dispatchers.Default): Int = flow {
-        emitAll(ONE_CLOSED_STROKE.countAllAndMultiply(this@countClosedStrokes, dispatcher, 1))
+    suspend fun CharSequence.countClosedStrokes(dispatcher: CoroutineDispatcher = Dispatchers.Default): ULong = flow {
+        emitAll(ONE_CLOSED_STROKE.countAllAndMultiply(this@countClosedStrokes, dispatcher, 1u))
         emitAll(
-            TWO_CLOSED_STROKES.countAllAndMultiply(this@countClosedStrokes, dispatcher, 2)
+            TWO_CLOSED_STROKES.countAllAndMultiply(this@countClosedStrokes, dispatcher, 2u)
         )
         emitAll(
-            THREE_CLOSED_STROKES.countAllAndMultiply(this@countClosedStrokes, dispatcher, 3)
+            THREE_CLOSED_STROKES.countAllAndMultiply(this@countClosedStrokes, dispatcher, 3u)
         )
     }.flowOn(dispatcher).toList().sum()
 }

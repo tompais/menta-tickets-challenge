@@ -15,9 +15,9 @@ object RegexUtils {
     fun Regex.countAllAndMultiply(
         input: CharSequence,
         dispatcher: CoroutineDispatcher = Dispatchers.Default,
-        multiplier: Int = 1
-    ): Flow<Int> = findAll(input).asFlow()
+        multiplier: UInt = 1u
+    ): Flow<ULong> = findAll(input).asFlow()
         .flowOn(dispatcher)
-        .map { it.value.count() * multiplier }
+        .map { it.value.count().toULong() * multiplier }
         .flowOn(dispatcher)
 }
