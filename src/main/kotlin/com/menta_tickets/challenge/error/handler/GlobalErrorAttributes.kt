@@ -21,7 +21,7 @@ class GlobalErrorAttributes : DefaultErrorAttributes() {
 
     private fun MutableMap<String, Any>.reformatStackTrace(error: Throwable?): MutableMap<String, Any> = apply {
         computeIfPresent(TRACE) { _, _ ->
-            ExceptionUtils.getStackFrames(error).map { it.removePrefix(TAB) }
+            ExceptionUtils.getStackFrames(error).map { it.replace(TAB, "") }
         }
     }
 
