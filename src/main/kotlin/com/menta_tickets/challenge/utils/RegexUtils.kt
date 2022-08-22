@@ -14,8 +14,8 @@ object RegexUtils {
     fun Regex.countAllAndMultiply(
         input: CharSequence,
         multiplier: UInt = 1u
-    ): Flow<ULong> = findAll(input).asFlow()
+    ): Flow<UInt> = findAll(input).asFlow()
         .flowOn(Dispatchers.Default)
-        .map { it.value.count().toULong() * multiplier }
+        .map { it.value.count().toUInt() * multiplier }
         .flowOn(Dispatchers.Default)
 }

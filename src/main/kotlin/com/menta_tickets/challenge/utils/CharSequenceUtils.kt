@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.toList
 
 object CharSequenceUtils {
-    suspend fun CharSequence.countClosedStrokes(): ULong = flow {
+    suspend fun CharSequence.countClosedStrokes(): UInt = flow {
         emitAll(ONE_CLOSED_STROKE.countAllAndMultiply(this@countClosedStrokes, 1u))
         emitAll(
             TWO_CLOSED_STROKES.countAllAndMultiply(this@countClosedStrokes, 2u)
