@@ -15,19 +15,19 @@ class ChallengeIntegrationTest : BaseIntegrationTest() {
     private companion object {
         @JvmStatic
         private fun solveChallenge(): List<Arguments> = listOf(
-            arguments("El 37% de los humanos está bancarizado", 15),
+            arguments("El 37% de los humanos está bancarizado", 16),
             arguments(
                 """7% es la taza de desocupación
                 |2% es el índice de producción industrial manufacturero
             """.trimMargin(),
-                35
+                37
             ),
             arguments(
                 """     7% es la taza de desocupación
                     |ç
                 |2% es el índice de producción industrial manufacturero
             """.trimMargin(),
-                35
+                37
             ),
             arguments("Jx31o0Ug", 3),
             arguments("@#\$%∞‰&/()=?¿_-", 15),
