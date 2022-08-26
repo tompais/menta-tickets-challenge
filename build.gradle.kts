@@ -1,14 +1,21 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val springDocOpenApiVersion: String by project
+val log4jApiKotlinVersion: String by project
+val mockkVersion: String by project
+val springMockkVersion: String by project
+val striktVersion: String by project
+val restAssuredWebTestClientVersion: String by project
+
 plugins {
-    id("org.springframework.boot") version "2.7.2"
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
-    id("org.asciidoctor.convert") version "1.5.8"
+    id("org.springframework.boot") version "2.7.3"
+    id("io.spring.dependency-management") version "1.0.13.RELEASE"
+    id("org.asciidoctor.convert") version "2.4.0"
     id("org.springdoc.openapi-gradle-plugin") version "1.4.0"
-    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
-    id("org.jlleitschuh.gradle.ktlint-idea") version "10.3.0"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("org.jlleitschuh.gradle.ktlint-idea") version "11.0.0"
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.spring") version "1.7.10"
     jacoco
     java
 }
@@ -47,17 +54,23 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.9")
-    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.9")
-    implementation("org.springdoc:springdoc-openapi-javadoc:1.6.9")
+    implementation("org.apache.logging.log4j:log4j-api-kotlin:$log4jApiKotlinVersion")
+    implementation("org.springdoc:springdoc-openapi-ui:$springDocOpenApiVersion")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:$springDocOpenApiVersion")
+    implementation("org.springdoc:springdoc-openapi-kotlin:$springDocOpenApiVersion")
+    implementation("org.springdoc:springdoc-openapi-javadoc:$springDocOpenApiVersion")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(module = "mockito-core")
+    }
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
+    testImplementation("io.strikt:strikt-core:$striktVersion")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-webtestclient")
-    testImplementation("io.rest-assured:spring-web-test-client:5.1.1")
+    testImplementation("io.rest-assured:spring-web-test-client:$restAssuredWebTestClientVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 }
 
 tasks.withType<KotlinCompile> {
@@ -122,7 +135,8 @@ tasks.jacocoTestReport {
                     "**/error/**",
                     "**/config/**",
                     "**/BaseController*",
-                    "**/ChallengeApplication*"
+                    "**/ChallengeApplication*",
+                    "**/extensions/**"
                 )
             }
         }

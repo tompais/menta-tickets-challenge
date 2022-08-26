@@ -1,6 +1,7 @@
 package com.menta_tickets.challenge.config
 
-import com.menta_tickets.challenge.controllers.ChallengeController
+import com.menta_tickets.challenge.controllers.implementations.ChallengeController
+import com.menta_tickets.challenge.controllers.interfaces.IChallengeController
 import com.menta_tickets.challenge.requests.ChallengeRequest
 import com.menta_tickets.challenge.responses.ChallengeResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -48,7 +49,7 @@ class RouterConfig {
             ]
         )
     )
-    fun challengeRoutes(challengeController: ChallengeController) = coRouter {
+    fun challengeRoutes(challengeController: IChallengeController) = coRouter {
         accept(APPLICATION_JSON).and(contentType(APPLICATION_JSON)).nest {
             POST("/challenge/solve", challengeController::solveChallenge)
         }

@@ -7,7 +7,7 @@ import org.springframework.web.server.ResponseStatusException
 import javax.validation.Validator
 
 abstract class BaseController(protected val validator: Validator) {
-    protected suspend inline fun <reified T : Any> ServerRequest.getAndValidateBody(): T =
+    protected suspend inline fun <reified T : Any> ServerRequest.validateAndGetBody(): T =
         awaitBody<T>().also(::validateBody)
 
     protected inline fun <reified T : Any> validateBody(body: T) {
